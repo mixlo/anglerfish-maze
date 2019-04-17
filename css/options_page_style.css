@@ -147,6 +147,7 @@ body {
         flex-direction:column;
         justify-self: center;
         font-size: 30px;
+        
     }
 
     .gamelevels_div {
@@ -154,6 +155,7 @@ body {
         flex-wrap: wrap;
         flex-direction: row;
         justify-content: left;
+        
         
         
     
