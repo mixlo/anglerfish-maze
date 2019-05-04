@@ -4,7 +4,13 @@ body {
     justify-content: center;
     background-image: url("../images/options_background.PNG");
     background-size: cover;
-    background-repeat:initial;
+    background-repeat: no-repeat;
+    height: 100%;
+    background-attachment: fixed;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;    
 }
 
 .main_container {
@@ -19,8 +25,8 @@ body {
     padding-left: 6%;
     padding-top: 5%;
     padding-bottom: 5%;
-    margin-top: 7%;
-    margin-bottom: 5%;
+    margin-top: 8%;
+    margin-bottom: 8%;
     font-family: Mali;
     font-size: 36px;
     color: #210852;
@@ -32,7 +38,7 @@ body {
     flex-direction: row;
     justify-content: space-between;
     padding: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 1.5%;
 }
 
 .sound_div {
@@ -41,7 +47,7 @@ body {
     flex-direction: row;
     justify-content: space-between;
     padding: 5px;
-    margin-bottom: 20px;
+    margin-bottom: 1.5%;
 }
 
 .gamelevels_div {
@@ -49,8 +55,8 @@ body {
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-evenly;
-    padding: 10px;
-    margin-bottom: 20px;
+    padding: 0.1em;
+    margin-bottom: 1.5%;
 }
 
 /*Creating and styling the custom radio buttons */
@@ -71,13 +77,13 @@ body {
 
 .radiobutton {
     float: left;
-    height: 25px;
-    width: 25px;
+    height: 0.7em;
+    width: 0.7em;
     background-color: #eee;
     border-radius: 50%;
     border-style: solid;
     border-color: #210852;
-    margin: 10px;
+    margin: 0.3em;
     transition: all .2s ease-in-out;
 }
 
@@ -142,25 +148,100 @@ body {
     }
 }
 
-@media screen and (max-width:1000px) and (max-height:1000px) {
-  
+.back_btn {
+    position: absolute;
+    cursor: pointer;
+    margin-left: -12%;
+    padding: 0%;
+    background-size: contain;
+    border-radius: 75%;
+    background-color: transparent;
+    border: transparent;
+    transition: all 0.3s ease 0s;
+}
+
+.back_btn:hover {
+    transform: translateY(-7px);
+}
+
+.back_btn:active {
+    box-shadow: slateblue;
+}
+
+@media screen and (max-width:65em) {
     .main_container {
         display: flex;
-        flex-direction:column;
+        flex-direction: column;
         justify-self: center;
-        font-size: 30px;
-        
+        margin-top: 13%;
     }
-
     .gamelevels_div {
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
         justify-content: left;
-        
-        
-        
-    
     }
- 
+    .back_btn {
+        margin-left: -8%;
+    }
+}
+
+@media screen and (max-width:50em) {
+    body {
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        background-image: url("../images/back_img2.PNG");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100%;
+        background-attachment: fixed;
+        box-sizing: border-box;
+    }
+    .main_container {
+        display: flex;
+        flex-direction: column;
+        justify-self: center;
+        font-size: 30px;
+        margin-top: 5em;
+    }
+    .gamelevels_div {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: left;
+    }
+    .back_btn {
+        margin-left: -3%;
+    }
+}
+
+@media screen and (max-width:30em) {
+    body {
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        background-image: url("../images/back_img2.PNG");
+        background-size: cover;
+        background-repeat: no-repeat;
+        height: 100%;
+        background-attachment: fixed;
+        box-sizing: border-box;
+    }
+    .main_container {
+        display: flex;
+        flex-direction: column;
+        justify-self: center;
+        font-size: 30px;
+        margin-top: 4em;
+    }
+    .gamelevels_div {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: left;
+    }
+    .back_btn {
+        margin-left: -1%;
+    }
 }

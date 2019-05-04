@@ -11,17 +11,57 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/p5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.3/addons/p5.dom.min.js"></script>
-    <script src="js/sprite.js"></script>
-    <script src="js/draw.js"></script>
-    <script src="js/GameController.js"></script>
+
+    <link href='https://fonts.googleapis.com/css?family=Mali' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="css/modal_boxes.css">
+   
 
     <title>AnglerFish Maze</title>
 </head>
 
 <body>
-        <img src="images/garbage.png">
+    <form i18n-data="add">Add</form>
+<!--Modal box that shows up when the game starts-->
+    <button class="btnStartGame">Modal Starting Game</button>
+    <div class="modal-sg">
+         <div class="modal-sg-content">
+              <div class="modal-sg-txt">
+              <h1 i18n-data="level1">LEVEL 1</h1>
+              <h2 i18n-data="ready">Are you ready?</h2>
+            </div>
+         <div class="modal-sg-btns">
+          <form i18n-data="quit" class="sg-btnQuit">Quit</form>
+          <form i18n-data="start" class="sg-btnStart">Start</form>
+         </div>
+         </div>
+    </div>
+
+<!--Modal box that shows up when the player gets to next level-->
+    <button class="btnNextLevel">Modal Next Level</button>
+    <div class="modal-nl">
+         <div class="modal-nl-content">
+            <div class="modal-nl-txt">
+                <h1>HURRAY!</h1>
+                <h2 i18n-data="adventure" class=modal-nl-txt-2>It's time for the next adventure.</h2>
+              </div>
+           <div class="modal-nl-btns">
+            <form i18n-data="quit" class="nl-btnQuit" >Quit</form>
+            <form i18n-data="next" class="nl-btnStart" >Next</form>
+           </div>
+         </div>
+    </div>
   
     <canvas class='play_area'></canvas>
+
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/language/sv.js"></script>
+    <script src="js/language/en.js"></script>
+    <script type="text/javascript" src="js/language.js"></script>
+    <script src="js/sprite.js"></script>
+    <script src="js/draw.js"></script>
+    <script src="js/GameController.js"></script>
+    <script src="js/events_modal_boxes.js"></script>
+
 </body>
 
 </html>
