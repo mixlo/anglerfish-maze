@@ -1,5 +1,5 @@
 // The GameEngine is responsible for keeping the game running.
-// It updates the model and renders the view at a rate of 30 times per second.
+// It updates the model and renders the view at a rate of 60 times per second.
 // It accumulates time to be able to only update/render at certain time steps.
 // This also enables the engine to make sure that no updates are lost, in case
 // the rendering takes longer than a time step.
