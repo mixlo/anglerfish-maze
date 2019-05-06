@@ -11,14 +11,14 @@ class Game {
 
     // Starts the game engine, game will update state and render 30 times/s.
     start() {
-	this.assManager.loadLevel(Levels.LEVEL1, (data, tileset) => {
+	this.assManager.loadLevel(Levels.LEVEL2, (data, tileset) => {
 	    this.controller = new GameController();
 	    this.model = new GameModel(data.tilemap.collision,
 				       data.tilemap.shrimpPos,
 				       data.tilemap.startTile,
 				       data.tilemap.exitTile,
 				       data.tilemap.size,
-				       data.tileset.size.tile,
+				       data.tileset.size,
 				       data.tileset.frameSets);
 	    this.view = new GameView(this.model.world.width,
 				     this.model.world.height,
@@ -31,7 +31,7 @@ class Game {
 	    const keyChange = (e) => this.controller.keyChange(e.type, e.keyCode);
 	    window.addEventListener("keydown", keyChange);
 	    window.addEventListener("keyup", keyChange);
-	    window.addEventListener("resize", this.resize);
+	    window.addEventListener("resize", () => this.resize());
 	    
 	    this.resize();
 	    this.assManager.loadMusic(data.music.url);
@@ -86,7 +86,10 @@ class Game {
 }
 
 const Levels = {
+    LEVEL0: 0,
     LEVEL1: 1,
     LEVEL2: 2,
-    LEVEL3: 3
+    LEVEL3: 3,
+    LEVEL4: 4,
+    LEVEL5: 5
 };

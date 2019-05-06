@@ -17,6 +17,10 @@ class GameView {
 	this.tilemap = tilemap;
 	this.tilemapSize = tilemapSize;
 	this.tileSize = tileSize;
+	this.blurMin = 10;
+	this.blurMax = 30;
+	this.blurChange = 1;
+	this.blur = this.blurMin;
     }
 
     // Renders everything that is drawn on the buffer canvas
@@ -111,18 +115,27 @@ class GameView {
     }
 
     drawLightMask(x, y, rad) {
+	// Update blur size
+	this.updateBlurValue()
 	// Save and restore to prevent shadow on everything else.
 	this.buffer.save();
 	this.buffer.beginPath();
 	this.buffer.arc(x, y, rad, 0, 2 * Math.PI, true);
 	this.buffer.rect(0, 0, this.worldWidth, this.worldHeight);
 	this.buffer.shadowColor = "yellow";
-	//this.buffer.shadowBlur = 1;
-	//this.buffer.shadowOffsetX = 0;
-	//this.buffer.shadowOffsetY = 0;
+	this.buffer.shadowBlur = this.blur;
+	this.buffer.shadowOffsetX = 0;
+	this.buffer.shadowOffsetY = 0;
 	this.buffer.fillStyle = "black";
 	this.buffer.fill();
 	this.buffer.closePath();
 	this.buffer.restore();
+    }
+
+    updateBlurValue() {
+	if (this.blur < this.blurMin || this.blur > this.blurMax)
+	    this.blurChange = -this.blurChange;
+
+	this.blur += this.blurChange;
     }
 }

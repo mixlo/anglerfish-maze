@@ -4,9 +4,9 @@
 // It is separated into multiple classes.
 class GameModel {
     constructor(collisionMap, shrimpPos, startTile,
-		exitTile, tilemapSize, tileSize, frameSets) {
+		exitTile, tilemapSize, tilesetSize, frameSets) {
 	this.world = new GameWorld(collisionMap, shrimpPos, startTile,
-				   exitTile, tilemapSize, tileSize, frameSets);
+				   exitTile, tilemapSize, tilesetSize, frameSets);
     }
     
     update() {
@@ -18,35 +18,34 @@ class GameModel {
 // It keeps a reference to, and is responsible for updating, the Player object.
 class GameWorld {
     constructor(collisionMap, shrimpPos, startTile,
-		exitTile, tilemapSize, tileSize, frameSets) {
-	this.width = tilemapSize.cols * tileSize;
-	this.height = tilemapSize.rows * tileSize;
-	this.shrimp = shrimpPos.map(sp => new GameShrimp(sp[1] * tileSize,
-							 sp[0] * tileSize,
-							 frameSets.shrimp));
-	this.exit = new GameExit(exitTile.col * tileSize,
-				 exitTile.row * tileSize,
-				 tileSize, tileSize);
+		exitTile, tilemapSize, tilesetSize, frameSets) {
 	this.tilemapSize = tilemapSize;
-	this.tileSize = tileSize;
-	this.player = new GamePlayer(startTile.col * tileSize,
-				     startTile.row * tileSize,
+	this.tileSize = tilesetSize.tile;
+	this.width = tilemapSize.cols * this.tileSize;
+	this.height = tilemapSize.rows * this.tileSize;
+	this.shrimp = shrimpPos.map(sp => new GameShrimp(sp[1] * this.tileSize,
+							 sp[0] * this.tileSize,
+							 tilesetSize.shrimp.width,
+							 tilesetSize.shrimp.height,
+							 frameSets.shrimp));
+	this.exit = new GameExit(exitTile.col * this.tileSize,
+				 exitTile.row * this.tileSize,
+				 this.tileSize, this.tileSize);
+	this.player = new GamePlayer(startTile.col * this.tileSize,
+				     startTile.row * this.tileSize,
+				     tilesetSize.player.width,
+				     tilesetSize.player.height,
 				     frameSets.player);
 	this.collisionHandler = new GameWorldCollisionHandler(collisionMap,
-							      tileSize);
-	this.lightRadiusMax = Math.max(this.width, this.height) / 2;
-	this.lightRadiusMin = 70;
+							      this.tileSize);
+	this.lightRadiusMax = Math.min(this.width,
+				       this.height) * 0.4;
+	this.lightRadiusMin = Math.max(tilesetSize.player.width,
+				       tilesetSize.player.height) * 1.3;
 	this.lightRadius = this.lightRadiusMax;
-	this.lightDecreaseFactor = 0.995;
+	this.lightDecreaseFactor = 0.999;
 	this.finished = false;
 	this.gameOver = false;
-	// Initialize shrimp and stuff
-	this.init();
-    }
-
-    // TODO: Initialize class with level information 
-    init() {
-	// Create shrimp objects, etc.
     }
 
     decreaseLight() {
@@ -392,16 +391,9 @@ class GameMovingObject extends GameObject {
 // The GamePlayer class keeps information about the player;
 // position, velocity, etc.
 class GamePlayer extends GameMovingObject {
-    constructor(startX, startY, frameSets) {
-	super(startX, startY, 42, 26);
-	//this.color = "#404040";
-	//this.color1 = "#404040";
-	//this.color2 = "#f0f0f0";
+    constructor(startX, startY, width, height, frameSets) {
+	super(startX, startY, width, height);
 	this.dirX = 1; // Initially facing right
-	
-	// Do we need to hardcode anything here?
-	// Can't rely solely on the .json file,
-	// need to know certain frame names, e.g. idle-left
 	
 	this.frameSets = {
 	    "idle-left" : frameSets["idle-left" ].map(f => new GameFrame(...f)),
@@ -461,8 +453,8 @@ class GamePlayer extends GameMovingObject {
 }
 
 class GameShrimp extends GameObject {
-    constructor(x, y, frameSets) {
-	super(x, y, 16, 16);
+    constructor(x, y, width, height, frameSets) {
+	super(x, y, width, height);
 
 	this.frameSets = {
 	    "squirm": frameSets["squirm"].map(f => new GameFrame(...f))
