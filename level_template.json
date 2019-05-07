@@ -1,0 +1,63 @@
+{
+    "tileset": {
+	"url": "./images/tileset_rabbit.png",
+	"size": {
+	    "rows":  8,
+	    "cols":  8,
+	    "tile": 16,
+	    "player": {
+		"width":  13,
+		"height": 14
+	    },
+	    "shrimp": {
+		"width":  16,
+		"height": 16
+	    }
+	},
+	"frameSets": {
+	    "player": {
+		"idle-left":  [[115,  96, 13, 16]],
+		"swim-left":  [[102,  96, 13, 16],
+			       [ 89,  96, 13, 16],
+			       [ 76,  96, 13, 16],
+			       [ 63,  96, 13, 16]],
+		"idle-right": [[  0, 112, 13, 16]],
+		"swim-right": [[ 13, 112, 13, 16],
+			       [ 26, 112, 13, 16],
+			       [ 39, 112, 13, 16],
+			       [ 52, 112, 13, 16]]
+	    },
+	    "shrimp": {
+		"squirm":     [[ 81, 112, 14, 16],
+		               [ 96, 112, 16, 16]]
+	    }
+	}
+    },
+    
+    "tilemap": {
+	"size": {
+	    "rows": TILEMAP_ROWS,
+	    "cols": TILEMAP_COLS
+	},
+	
+	"graphical":
+GRAPHICAL_MAP,
+	
+	"collision":
+COLLISION_MAP,
+	
+	"shrimpPos": SHRIMP_POS,
+	"startTile": {
+	    "row": START_ROW,
+	    "col": START_COL
+	},
+	"exitTile": {
+	    "row": EXIT_ROW,
+	    "col": EXIT_COL
+	}
+    },
+    
+    "music": {
+	"url": "MUSIC_URL"
+    }
+}
