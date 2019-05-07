@@ -1,6 +1,6 @@
 {
     "tileset": {
-	"url": "./tileset.png",
+	"url": "./images/tileset.png",
 	"size": {
 	    "rows":  8,
 	    "cols":  8,
