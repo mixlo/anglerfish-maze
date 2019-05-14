@@ -12,18 +12,20 @@
 
 <body>
     <div class="sound_div"> </div>
+    <div class="bubbles"></div>
     <div class="home_container">
 
         <div class="buttons_div">
-          <button class="button" @click="driveForward">Play</button>
-          <button class="button" @click="driveForward">Tutorial</button>
-          <button class="button" @click="driveForward">Options</button>
+          <button class="button" onclick="window.open('Game.html', '_self');">Play</button>
+          <button class="button" onclick="window.open('options_page.html')">Tutorial</button>
+          <button class="button" onclick="window.open('options_page.html', '_self');">Options</button>
 
         </div>
 
     </div>
 
-
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/bubbles.js"></script>
 </body>
 
 </html>

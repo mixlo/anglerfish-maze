@@ -5,6 +5,7 @@ body {
     background-color: #5DADE2;
     background-size: cover;
     background-repeat:initial;
+    background-attachment: fixed;
     margin-top: 1%;
     margin-right: 17%;
     margin-left: 12%;
@@ -16,7 +17,6 @@ body {
     justify-content: space-evenly;
     justify-content: center;
     background-image: url("../images/home_background.png");
-    background-repeat: initial;
     background-size: cover;
     width: 70%;
     border-color: #FAE6E6;
@@ -72,6 +72,56 @@ body {
   background-color: rgb(158, 242, 243);
   box-shadow: 5px 7px 0px rgba(46, 200, 500, 0.4);
   transform: translateY(-1px);
+}
+
+/*From https://codepen.io/bh/pen/JBlCc*/
+
+.bubble-container {
+    position: absolute;
+    bottom: 0;
+    animation: bubblerise 4s ease-in-out infinite;
+    -moz-animation: bubblerise 4s ease-in-out infinite;
+    opacity: 0;
+}
+
+.bubble {
+    width: 3px;
+    height: 3px;
+    margin: 0 auto;
+    animation: bubblewobble 0.3s infinite linear;
+    -moz-animation: bubblewobble 0.3s infinite linear;
+}
+
+.bubble #bubble_img {
+    width: 35px;
+    height: 36px;
+}
+
+@keyframes bubblerise {
+    0% {
+        bottom: 0;
+        opacity: 0;
+    }
+    5% {
+        bottom: 0;
+        opacity: 1;
+    }
+    99% {
+        opacity: 1;
+    }
+    100% {
+        bottom: 100%;
+        opacity: 0;
+    }
+}
+
+@keyframes bubblewobble {
+    0% {
+        margin-left: 0;
+    }
+    50% {
+        margin-left: 2px;
+    }
 }
 
 @media screen and (max-width:65em) {
