@@ -9,20 +9,29 @@ var btnNextLevel = document.querySelector(".btnNextLevel");
 var nlBtnQuit=document.querySelector(".nl-btnQuit");
 var nlBtnStart=document.querySelector(".nl-btnStart");
 
+var modallg = document.querySelector(".modal-lg");
+var btnLoosingGame = document.querySelector(".btnLoosingGame");
+var lgBtnQuit = document.querySelector(".lg-btnQuit");
+var lgBtnStart = document.querySelector(".lg-btnStart");
+
 
 function toggleModalStartGame() {
     modalsg.classList.toggle("show-modal-sg");
-    
+
 }
 
 function toggleModalNextLevel() {
     modalnl.classList.toggle("show-modal-nl");
-    
+
+}
+
+function toggleModalLoosingGame() {
+  modallg.classList.toggle("show-modal-lg");
 }
 
 
 function windowOnClick(event) {
-    location.replace("options_page.html")
+    location.replace("Home_page.html")
 }
 
 btnStartGame.addEventListener("click", toggleModalStartGame);
@@ -32,3 +41,7 @@ sgBtnStart.addEventListener("click", toggleModalStartGame);
 btnNextLevel.addEventListener("click", toggleModalNextLevel);
 nlBtnQuit.addEventListener("click",toggleModalNextLevel);
 nlBtnStart.addEventListener("click", windowOnClick);
+
+btnLoosingGame.addEventListener("click", toggleModalLoosingGame);
+lgBtnQuit.addEventListener("click", toggleModalLoosingGame);
+lgBtnStart.addEventListener("click", windowOnClick);

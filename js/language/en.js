@@ -10,7 +10,9 @@ var en_lang={
     "next":"Next",
     "level1":"LEVEL 1",
     "ready":"Are you ready?",
-    "adventure":"It's time for the next adventure."
+    "adventure":"It's time for the next adventure.",
+    "dead":"That plastic was not good to eat.",
+    "restart":"Try again"
 
 
 }
