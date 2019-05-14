@@ -5,7 +5,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-   
+
     <link href='https://fonts.googleapis.com/css?family=Mali' rel='stylesheet'>
 
 
@@ -14,7 +14,7 @@
 
     <link href='https://fonts.googleapis.com/css?family=Mali' rel='stylesheet'>
     <link rel="stylesheet" type="text/css" href="css/modal_boxes.css">
-   
+
 
     <title>AnglerFish Maze</title>
 </head>
@@ -50,7 +50,24 @@
            </div>
          </div>
     </div>
-  
+
+<!--Modal box that shows up when the player has lost the game-->
+    <button class="btnLoosingGame">Modal Loosing Game</button>
+    <div class="modal-lg">
+         <div class="modal-lg-content">
+            <div class="modal-lg-txt">
+                <h1>Oh no!</h1>
+                <h2 i18n-data="dead">That plastic was not good to eat.</h2>
+              </div>
+            <div class="modal-lg-btns">
+             <form i18n-data="quit" class="lg-btnQuit" >Quit</form>
+             <form i18n-data="restart" class="lg-btnStart" >Try again</form>
+            </div>
+         </div>
+    </div>
+
+
+
     <canvas class='play_area'></canvas>
 
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
