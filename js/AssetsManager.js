@@ -5,7 +5,7 @@ class AssetsManager {
     // named as specified in the lvlUrl variable, by replacing X with an
     // integer.
     constructor() {
-	this.lvlUrl = "./levelX.json";
+	this.lvlUrl = "./levels/levelX.json";
     }
 
     // Loads the level configuration from the JSON file of the level specified

@@ -13,7 +13,7 @@ class Game {
     // The level configurations are stored in JSON files and will be read by
     // the AssetsManager object.
     start() {
-	this.assManager.loadLevel(Levels.LEVEL5, (data, tileset) => {
+	this.assManager.loadLevel(Levels.LEVEL3, (data, tileset) => {
 	    this.controller = new GameController();
 	    this.model = new GameModel(data.tilemap.collision,
 				       data.tilemap.shrimpPos,
@@ -89,7 +89,6 @@ class Game {
 
 // Enum for all levels.
 const Levels = {
-    LEVEL0: 0,
     LEVEL1: 1,
     LEVEL2: 2,
     LEVEL3: 3,
