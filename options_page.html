@@ -12,20 +12,28 @@
 
 <body>
 
+    <div class="background_image"></div>
+
     <div class="bubbles"></div>
+
+    <div class=back_area>
+        <button class="back_btn" onclick="window.open('test.html', '_self');"><img class="icon"
+                src="images/back_btn.png"></button>
+    </div>
 
 
     <div class="main_container">
         <form class="language_div">
-
-            <label class="radio_container_lang">English
+            <label class="radio_container_lang">
+                <label>English</label>
                 <input type="radio" name="radio" value="english" checked="checked">
-                <span class="radiobutton"></span>
+                <span class="radiobutton" onclick="switchLanguage('en')" onmousedown="bubble_sound.play()"></span>
             </label>
 
-            <label class="radio_container_lang">Svenska
+            <label class="radio_container_lang">
+                <label>Svenska</label>
                 <input type="radio" name="radio" value="swedish">
-                <span class="radiobutton"></span>
+                <span class="radiobutton" onclick="switchLanguage('sv')" onmousedown="bubble_sound.play()"></span>
             </label>
 
 
@@ -33,37 +41,42 @@
 
         <form class="sound_div">
 
-            <label class="radio_container_sound"> Sound on
+            <label class="radio_container_sound">
+                <label i18n-data="soundon">Sound on</label>
                 <input type="radio" name="radio" checked="checked">
-                <span class="radiobutton" checked="checked"></span>
+                <span class="radiobutton" checked="checked" onmousedown="bubble_sound.play()"></span>
 
             </label>
 
 
-            <label class="radio_container_sound"> Sound off
+            <label class="radio_container_sound">
+                <label i18n-data="soundoff">Sound off</label>
                 <input type="radio" name="radio">
-                <span class="radiobutton"></span>
+                <span class="radiobutton" onmousedown="bubble_sound.play()"></span>
             </label>
 
         </form>
         <form class="gamelevels_div">
 
-            <label class="radio_container_level">Easy
+            <label class="radio_container_level">
+                <label i18n-data="easy">Easy</label>
                 <input type="radio" name="radio" checked="checked">
-                <span class="radiobutton"></span>
+                <span class="radiobutton" onmousedown="bubble_sound.play()"></span>
 
             </label>
 
 
-            <label class="radio_container_level"> Medium
+            <label class="radio_container_level">
+                <label i18n-data="medium">Medium</label>
                 <input type="radio" name="radio">
-                <span class="radiobutton"></span>
+                <span class="radiobutton" onmousedown="bubble_sound.play()"></span>
             </label>
 
 
-            <label class="radio_container_level"> Hard
+            <label class="radio_container_level">
+                <label i18n-data="hard">Hard</label>
                 <input type="radio" name="radio">
-                <span class="radiobutton"></span>
+                <span class="radiobutton" onmousedown="bubble_sound.play()"></span>
             </label>
 
 
@@ -72,8 +85,21 @@
 
     </div>
 
+    <!--Adding bubble sound when pressing a button-->
+    <script>
+    var bubble_sound=new Audio();
+    bubble_sound.src="audio/bubbles.mp3";
+    
+    </script>
+
+
     <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="js/bubbles.js"></script>
+    <script src="js/language/sv.js"></script>
+    <script src="js/language/en.js"></script>
+    <script type="text/javascript" src="js/initialize.js"></script>
+    <script type="text/javascript" src="js/language.js"></script>
+    <script type="text/javascript" src="js/events.js"></script>
 
 
 </body>

@@ -1,0 +1,103 @@
+body {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    background-color: #5DADE2;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    background-attachment: fixed;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+}
+
+.tutorials_container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  border-color: #FAE6E6;
+  border-style: solid;
+  border-width: 5px;
+  border-radius: 6px;
+  padding-right: 10%;
+  padding-left: 6%;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  margin-top: 8%;
+  margin-bottom: 8%;
+  font-family: Mali;
+  font-size: 36px;
+  color: #210852;
+}
+
+/*From https://codepen.io/bh/pen/JBlCc*/
+
+.bubble-container {
+    position: absolute;
+    bottom: 0;
+    animation: bubblerise 4s ease-in-out infinite;
+    -moz-animation: bubblerise 4s ease-in-out infinite;
+    opacity: 0;
+}
+
+.bubble {
+    width: 3px;
+    height: 3px;
+    margin: 0 auto;
+    animation: bubblewobble 0.3s infinite linear;
+    -moz-animation: bubblewobble 0.3s infinite linear;
+}
+
+.bubble #bubble_img {
+    width: 35px;
+    height: 36px;
+}
+
+@keyframes bubblerise {
+    0% {
+        bottom: 0;
+        opacity: 0;
+    }
+    5% {
+        bottom: 0;
+        opacity: 1;
+    }
+    99% {
+        opacity: 1;
+    }
+    100% {
+        bottom: 100%;
+        opacity: 0;
+    }
+}
+
+@keyframes bubblewobble {
+    0% {
+        margin-left: 0;
+    }
+    50% {
+        margin-left: 2px;
+    }
+}
+
+.back_btn {
+    position: absolute;
+    cursor: pointer;
+    margin-left: -12%;
+    padding: 0%;
+    background-size: contain;
+    border-radius: 75%;
+    background-color: transparent;
+    border: transparent;
+    transition: all 0.3s ease 0s;
+}
+
+.back_btn:hover {
+    transform: translateY(-7px);
+}
+
+.back_btn:active {
+    box-shadow: slateblue;
+}
