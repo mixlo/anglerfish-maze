@@ -4,12 +4,11 @@
 // This also enables the engine to make sure that no updates are lost, in case
 // the rendering takes longer than a time step.
 class GameEngine {
-    constructor(update, render) {
-	// updatesPerSec determines how many times per second the engine will 
-	// check if any arrow keys are pressed and update the player's position
-	// accordingly. Higher updatesPerSec == faster game, but slower devices
-	// might not be able to keep up with the speed if too high.
-	const updatesPerSec = 30;
+    // updatesPerSec determines how many times per second the engine will 
+    // check if any arrow keys are pressed and update the player's position
+    // accordingly. Higher updatesPerSec == faster game, but slower devices
+    // might not be able to keep up with the speed if too high.
+    constructor(update, render, updatesPerSec=30) {
 	this.update = update;
 	this.render = render;
 	this.timeStep = 1000/updatesPerSec;

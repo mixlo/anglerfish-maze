@@ -10,8 +10,10 @@ class Game {
     }
 
     // Starts the game engine, game will update state and render 30 times/s.
+    // The level configurations are stored in JSON files and will be read by
+    // the AssetsManager object.
     start() {
-	this.assManager.loadLevel(Levels.LEVEL2, (data, tileset) => {
+	this.assManager.loadLevel(Levels.LEVEL5, (data, tileset) => {
 	    this.controller = new GameController();
 	    this.model = new GameModel(data.tilemap.collision,
 				       data.tilemap.shrimpPos,
@@ -52,31 +54,31 @@ class Game {
     // Renders the world; filling the background, rendering the player at its
     // position specified in the model.
     render() {
-	// Draw tilemap
+	// Draw tilemap onto buffer canvas
 	this.view.drawMap();
 
-	// Draw player
+	// Draw player onto buffer canvas
 	let player = this.model.world.player;
 	let playerFrame = player.animator.frame;
 	this.view.drawObject(player, playerFrame);
-	
-	// Draw shrimp
+
+	// Draw shrimp onto buffer canvas
 	for (let shrimp of this.model.world.shrimp) {
 	    let shrimpFrame = shrimp.animator.frame;
 	    this.view.drawObject(shrimp, shrimpFrame);
 	}
 	
-	// Draw light mask
-	this.view.drawLightMask(this.model.world.player.xCenter,
-				this.model.world.player.yCenter,
-				this.model.world.lightRadius);
+	// Draw light mask onto buffer canvas
+	//this.view.drawLightMask(this.model.world.player.xCenter,
+	//			this.model.world.player.yCenter,
+	//			this.model.world.lightRadius);
 		
-	// Render everything
+	// Render everything onto real canvas
 	this.view.render();
     }
 
-    // Resizes and renders the game view when the browser window size is
-    // adjusted. Doesn't work flawlessly as of now, will fix.
+    // Resizes and renders the game view when
+    // the browser window size is adjusted.
     resize() {
 	const domWidth = document.documentElement.clientWidth;
 	const domHeight = document.documentElement.clientHeight;
@@ -85,11 +87,13 @@ class Game {
     }
 }
 
+// Enum for all levels.
 const Levels = {
     LEVEL0: 0,
     LEVEL1: 1,
     LEVEL2: 2,
     LEVEL3: 3,
     LEVEL4: 4,
-    LEVEL5: 5
+    LEVEL5: 5,
+    LEVEL6: 6
 };
