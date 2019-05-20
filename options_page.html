@@ -1,107 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="css/options_page_style.css">
-    <link href='https://fonts.googleapis.com/css?family=Mali' rel='stylesheet'>
-    <title>AnglerFish Maze</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="css/options_page_style.css">
+  <link href='https://fonts.googleapis.com/css?family=Mali' rel='stylesheet'>
+  <title>AnglerFish Maze</title>
 </head>
-
 <body>
-
-    <div class="background_image"></div>
-
-    <div class="bubbles"></div>
-
-    <div class=back_area>
-        <button class="back_btn" onclick="window.open('test.html', '_self');"><img class="icon"
-                src="images/back_btn.png"></button>
-    </div>
-
-
-    <div class="main_container">
-        <form class="language_div">
-            <label class="radio_container_lang">
-                <label>English</label>
-                <input type="radio" name="radio" value="english" checked="checked">
-                <span class="radiobutton" onclick="switchLanguage('en')" onmousedown="bubble_sound.play()"></span>
-            </label>
-
-            <label class="radio_container_lang">
-                <label>Svenska</label>
-                <input type="radio" name="radio" value="swedish">
-                <span class="radiobutton" onclick="switchLanguage('sv')" onmousedown="bubble_sound.play()"></span>
-            </label>
-
-
-        </form>
-
-        <form class="sound_div">
-
-            <label class="radio_container_sound">
-                <label i18n-data="soundon">Sound on</label>
-                <input type="radio" name="radio" checked="checked">
-                <span class="radiobutton" checked="checked" onmousedown="bubble_sound.play()"></span>
-
-            </label>
-
-
-            <label class="radio_container_sound">
-                <label i18n-data="soundoff">Sound off</label>
-                <input type="radio" name="radio">
-                <span class="radiobutton" onmousedown="bubble_sound.play()"></span>
-            </label>
-
-        </form>
-        <form class="gamelevels_div">
-
-            <label class="radio_container_level">
-                <label i18n-data="easy">Easy</label>
-                <input type="radio" name="radio" checked="checked">
-                <span class="radiobutton" onmousedown="bubble_sound.play()"></span>
-
-            </label>
-
-
-            <label class="radio_container_level">
-                <label i18n-data="medium">Medium</label>
-                <input type="radio" name="radio">
-                <span class="radiobutton" onmousedown="bubble_sound.play()"></span>
-            </label>
-
-
-            <label class="radio_container_level">
-                <label i18n-data="hard">Hard</label>
-                <input type="radio" name="radio">
-                <span class="radiobutton" onmousedown="bubble_sound.play()"></span>
-            </label>
-
-
-        </form>
-
-
-    </div>
-
-    <!--Adding bubble sound when pressing a button-->
-    <script>
+  <div class="background_image"></div>
+  <div class="bubbles"></div>
+  <div class="back_area">
+    <button class="back_btn" onclick="location.replace('Home_page.html');">
+      <img class="icon" src="images/back_btn.png">
+    </button>
+  </div>
+  
+  <div class="main_container">
+    
+    <form class="language_div">
+      <label class="radio_container_lang">
+        <label>English</label>
+        <input type="radio" name="radio" value="english" checked="checked">
+        <span class="radiobutton" onclick="switchLanguage('en')" onmousedown="playBubbleSound()"></span>
+      </label>
+      <label class="radio_container_lang">
+        <label>Svenska</label>
+        <input type="radio" name="radio" value="swedish">
+        <span class="radiobutton" onclick="switchLanguage('sv')" onmousedown="playBubbleSound()"></span>
+      </label>
+    </form>
+    
+    <form class="sound_div">
+      <label class="radio_container_sound">
+        <label i18n-data="soundon">Sound on</label>
+        <input type="radio" name="radio" checked="checked">
+        <span class="radiobutton" checked="checked" onmousedown="toggleMute(false);"></span>
+      </label>
+      <label class="radio_container_sound">
+        <label i18n-data="soundoff">Sound off</label>
+        <input type="radio" name="radio">
+        <span class="radiobutton" onmousedown="toggleMute(true)"></span>
+      </label>
+    </form>
+    
+    <form class="gamelevels_div">
+      <label class="radio_container_level">
+        <label i18n-data="easy">Easy</label>
+        <input type="radio" name="radio" checked="checked">
+        <span class="radiobutton" onmousedown="playBubbleSound()"></span>
+      </label>
+      <label class="radio_container_level">
+        <label i18n-data="medium">Medium</label>
+        <input type="radio" name="radio">
+        <span class="radiobutton" onmousedown="playBubbleSound()"></span>
+      </label>
+      <label class="radio_container_level">
+        <label i18n-data="hard">Hard</label>
+        <input type="radio" name="radio">
+        <span class="radiobutton" onmousedown="playBubbleSound()"></span>
+      </label>
+    </form>
+    
+  </div>
+  
+  <!--Adding bubble sound when pressing a button-->
+  <script>
     var bubble_sound=new Audio();
     bubble_sound.src="audio/bubbles.mp3";
     
-    </script>
-
-
-    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="js/bubbles.js"></script>
-    <script src="js/language/sv.js"></script>
-    <script src="js/language/en.js"></script>
-    <script type="text/javascript" src="js/initialize.js"></script>
-    <script type="text/javascript" src="js/language.js"></script>
-    <script type="text/javascript" src="js/events.js"></script>
-
-
+    function toggleMute(shouldMute) {
+        if (shouldMute) {
+            localStorage.setItem("muted", true);
+        } else {
+            localStorage.setItem("muted", false);
+            bubble_sound.play();
+        }
+    }
+    
+    function playBubbleSound() {
+        if (localStorage.getItem("muted") != "true") {
+            bubble_sound.play ();
+        }
+    }
+  </script>
+  <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="js/bubbles.js"></script>
+  <script src="js/language/sv.js"></script>
+  <script src="js/language/en.js"></script>
+  <script type="text/javascript" src="js/initialize.js"></script>
+  <script type="text/javascript" src="js/language.js"></script>
+  <script type="text/javascript" src="js/events.js"></script>
 </body>
-
 </html>

@@ -50,6 +50,10 @@ class AssetsManager {
     loadMusic(musicUrl) {
 	this.music = new Audio(musicUrl);
 	this.music.loop = true;
+
+	if (localStorage.getItem("muted") == "true")
+	    this.music.muted = true;
+	
 	this.music.play();
     }
 }

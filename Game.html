@@ -5,6 +5,7 @@
     <meta name="viewport" content="user-scalable=no,width=device-width" />
     <title>Anglerfish Maze</title>
     <link href="./css/Game.css" rel="stylesheet" type="text/css" />
+    <link href="./css/modal_boxes.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="./js/Game.js"></script>
     <script type="text/javascript" src="./js/GameEngine.js"></script>
     <script type="text/javascript" src="./js/GameController.js"></script>
@@ -14,8 +15,58 @@
   </head>
   <body>
     <canvas></canvas>
+    
+    <div id="modalPause" class="modal">
+      <div class="modal-content">
+        <div class="modal-btns">
+	  <form i18n-data="resume" id="pauseBtnResume" class="modal-btn">Resume</form>
+	  <form i18n-data="togglemute" id="pauseBtnToggleMute" class="modal-btn">Mute/Unmute</form>
+          <form i18n-data="quit" id="pauseBtnQuit" class="modal-btn">Quit</form>
+        </div>
+      </div>
+    </div>
+    
+    <div id="modalFinish" class="modal">
+      <div class="modal-content">
+	<div class="modal-txt">
+	  <h1>HURRAY!</h1>
+          <h2 i18n-data="adventure" class="modal-txt-2">It's time for the next adventure.</h2>
+	</div>
+        <div class="modal-btns">
+	  <form i18n-data="next" id="finishBtnNext" class="modal-btn">Next level</form>
+          <form i18n-data="quit" id="finishBtnQuit" class="modal-btn">Quit</form>
+        </div>
+      </div>
+    </div>
+
+    <div id="modalLose" class="modal">
+      <div class="modal-content">
+        <div class="modal-txt">
+          <h1>Oh no!</h1>
+          <h2 i18n-data="dead" class="modal-txt-2">That plastic was not good to eat.</h2>
+        </div>
+        <div class="modal-btns">
+	  <form i18n-data="restart" id="loseBtnAgain" class="modal-btn">Try again</form>
+          <form i18n-data="quit" id="loseBtnQuit" class="modal-btn">Quit</form>
+        </div>
+      </div>
+    </div>
+
+    <div id="modalFinal" class="modal">
+      <div class="modal-content">
+	<div class="modal-txt">
+	  <h1>AMAZING!</h1>
+          <h2 i18n-data="final" class="modal-txt-2">You finished all the levels!</h2>
+	</div>
+        <div class="modal-btns">
+          <form i18n-data="quit" id="finalBtnQuit" class="modal-btn">Quit</form>
+        </div>
+      </div>
+    </div>
+
     <script type="text/javascript">
-      new Game().start();
+      const game = new Game();
+      game.start();
     </script>
   </body>
 </html>
