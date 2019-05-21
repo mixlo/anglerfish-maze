@@ -10,5 +10,8 @@ var sv_lang={
     "next":"Nästa",
     "level1":"NIVÅ 1",
     "ready":"Är du redo?",
-    "adventure":"Det är dags för nästa äventyr."
+    "adventure":"Det är dags för nästa äventyr.",
+    "play":"Spela",
+    "options":"Inställningar",
+    "tutorial":"Handledning"
 }

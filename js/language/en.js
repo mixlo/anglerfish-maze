@@ -12,7 +12,10 @@ var en_lang={
     "ready":"Are you ready?",
     "adventure":"It's time for the next adventure.",
     "dead":"That plastic was not good to eat.",
-    "restart":"Try again"
+    "restart":"Try again",
+    "play":"Play",
+    "options":"Options",
+    "tutorial":"Tutorial"
 
 
 }

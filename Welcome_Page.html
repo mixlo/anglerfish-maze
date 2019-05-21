@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/welcome_page.css">
+    <link href='https://fonts.googleapis.com/css?family=Mali' rel='stylesheet'>
+    <title>AnglerFish Maze</title>
+</head>
+
+<body>
+    <div class="bubbles"></div>
+
+
+    <div class="first_container">
+        <div class="sound_div" id="soundBtn" onclick="toggleSoundBackground(),changeImage()"><img id="soundImg"
+                src="images/sound_off.png"></div>
+
+        <div class="home_container">
+
+            <div class="buttons_div">
+                <button class="button" onmouseover="toggleSoundBtns()"
+                    onclick="window.open('Game.html', '_self');" i18n-data="play">Play</button>
+                <button class="button" onmouseover="toggleSoundBtns()"
+                    onclick="window.open('tutorials_page.html', '_self')" i18n-data="tutorial">Tutorial</button>
+                <button class="button" onmouseover="toggleSoundBtns()"
+                    onclick="window.open('options_page.html', '_self');" i18n-data="options">Options</button>
+
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/audio_events.js"></script>
+    <!--<script type="text/javascript" src="js/bubbles.js"></script>-->
+    <script type="text/javascript" src="js/language.js"></script>
+    
+</body>
+
+</html>
