@@ -53,7 +53,7 @@ class Game {
 
 	    // Can disable light mask and wall collisions,
 	    // mainly for debugging/demonstration purposes.
-	    this.disableMask = true;
+	    //this.disableMask = true;
 	    //this.model.world.disableCollisions = true;
 
 	    // Begin by making sure that game is scaled to the window
