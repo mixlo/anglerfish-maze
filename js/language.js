@@ -64,11 +64,13 @@ function translateToCurrentLanguage(languageStringKey) {
 
 // call this to set the language
 function initLanguage() {
-    currentLanguageString = localStorage.getItem('current_language');
+    var currentLanguageString = localStorage.getItem('current_language');
 
     // load english as default when no language is set yet
-    if (currentLanguageString == 'null') {
-        currentLanguage = JSON.parse(localStorage.getItem('en_lang'));
+    if (!currentLanguageString) {
+	var en_string = localStorage.getItem('en_lang');
+	localStorage.setItem('current_language', en_string);
+        currentLanguage = JSON.parse(en_string);
     } else {
         //console.log(currentLanguageString);
         currentLanguage = JSON.parse(currentLanguageString);
@@ -77,10 +79,10 @@ function initLanguage() {
 
 // loads the language, needs a delay to wait for all items to load
 $(document).ready(function () {
-    var delayInMilliseconds = 10;
-    setTimeout(function () {
+    //var delayInMilliseconds = 10;
+    //setTimeout(function () {
         translateByAttribute();
-    }, delayInMilliseconds);
+    //}, delayInMilliseconds);
 
 });
 

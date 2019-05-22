@@ -4,19 +4,20 @@
 // This also enables the engine to make sure that no updates are lost, in case
 // the rendering takes longer than a time step.
 class GameEngine {
-    constructor(update, render) {
-	// updatesPerSec determines how many times per second the engine will 
-	// check if any arrow keys are pressed and update the player's position
-	// accordingly. Higher updatesPerSec == faster game, but slower devices
-	// might not be able to keep up with the speed if too high.
-	const updatesPerSec = 30;
+    // updatesPerSec determines how many times per second the engine will 
+    // check if any arrow keys are pressed and update the player's position
+    // accordingly. Higher updatesPerSec == faster game, but slower devices
+    // might not be able to keep up with the speed if too high.
+    constructor(update, render, handleWinLoss, updatesPerSec=30) {
 	this.update = update;
 	this.render = render;
+	this.handleWinLoss = handleWinLoss;
 	this.timeStep = 1000/updatesPerSec;
 	this.accTime = 0;
 	this.prevTime = undefined;
 	this.afr = undefined;
 	this.updated = false;
+	this.running = false;
     }
 
     // Starts the engine, entering the run() loop, keeping track of the last
@@ -25,11 +26,13 @@ class GameEngine {
 	this.prevTime = window.performance.now();
 	this.accTime = this.timeStep;
 	this.afr = window.requestAnimationFrame((ts) => this.run(ts));
+	this.running = true;
     }
 
     // Stops the run() loop by cancelling the current animation frame request.
     stop() {
 	window.cancelAnimationFrame(this.afr);
+	this.running = false;
     }
 
     // The fixed time step game loop.
@@ -64,6 +67,7 @@ class GameEngine {
 	// performed.
 	if (this.updated) {
 	    this.render();
+	    this.handleWinLoss();
 	    this.updated = false;
 	}
     }

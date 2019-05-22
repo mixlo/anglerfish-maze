@@ -23,31 +23,78 @@ class GameWorld {
 	this.tileSize = tilesetSize.tile;
 	this.width = tilemapSize.cols * this.tileSize;
 	this.height = tilemapSize.rows * this.tileSize;
-	this.shrimp = shrimpPos.map(sp => new GameShrimp(sp[1] * this.tileSize,
-							 sp[0] * this.tileSize,
-							 tilesetSize.shrimp.width,
-							 tilesetSize.shrimp.height,
-							 frameSets.shrimp));
+	
+	// For each specified shrimp location, generate a shrimp object
+	// centered in the tile in which it is placed.
+	this.shrimp = shrimpPos.map(
+	    sp => new GameShrimp(
+		    ...this.calcCoordsForCenter(...sp,
+						tilesetSize.shrimp.width,
+						tilesetSize.shrimp.height,
+						this.tileSize),
+		tilesetSize.shrimp.width,
+		tilesetSize.shrimp.height,
+		frameSets.shrimp));
+
+	// The exit is kept as an object to be able to use the collision
+	// functionality to check if the player completes the level.
 	this.exit = new GameExit(exitTile.col * this.tileSize,
 				 exitTile.row * this.tileSize,
 				 this.tileSize, this.tileSize);
-	this.player = new GamePlayer(startTile.col * this.tileSize,
-				     startTile.row * this.tileSize,
+
+	// Create the player object, initially centered in its start tile.
+	const playerXY = this.calcCoordsForCenter(startTile.row,
+						  startTile.col,
+						  tilesetSize.player.width,
+						  tilesetSize.player.height,
+						  this.tileSize);
+	this.player = new GamePlayer(...playerXY,
 				     tilesetSize.player.width,
 				     tilesetSize.player.height,
 				     frameSets.player);
+
+	// Create a collision handler object based on the collision map.
+	// Provide the width and height of the world to be able to make sure
+	// the the player doesn't exits the world from the start and exit
+	// tiles, since they are open to the left and right, respectively.
 	this.collisionHandler = new GameWorldCollisionHandler(collisionMap,
-							      this.tileSize);
+							      this.tileSize,
+							      this.width,
+							      this.height);
+
+	// Set the light radius configurations. The maximum radius is set
+	// to a certain percentage of the world's width and height. The
+	// minimum radius is set to be a small percentage bigger than the
+	// player's size. The actual radius is initially set to maximum
+	// radius and is then continuously shrinking by the decrease
+	// factor. When the player "east" (collides with) a shrimp, the
+	// radius is reset to the maximum radius value.
 	this.lightRadiusMax = Math.min(this.width,
 				       this.height) * 0.4;
 	this.lightRadiusMin = Math.max(tilesetSize.player.width,
 				       tilesetSize.player.height) * 1.3;
 	this.lightRadius = this.lightRadiusMax;
 	this.lightDecreaseFactor = 0.999;
+
+	// Variables keeping track of whether the player has collided with
+	// a wall (game over) or the exit (level finished).
 	this.finished = false;
 	this.gameOver = false;
+	this.disableCollisions = false;
     }
 
+    // Calculates the which x and y coordinates should be used to make an
+    // object be rendered in the center of a tile.
+    calcCoordsForCenter(tileRow, tileCol, width, height, tileSize) {
+	const tileXCenter = tileSize * (tileCol + 0.5);
+	const tileYCenter = tileSize * (tileRow + 0.5);
+	const dstX = tileXCenter - width  * 0.5;
+	const dstY = tileYCenter - height * 0.5;
+	return [dstX, dstY];
+    }
+
+    // Decreases the light radius by the decrease factor, but oesn't go below
+    // the minimum radius.
     decreaseLight() {
 	if (this.lightRadius > this.lightRadiusMin)
 	    this.lightRadius *= this.lightDecreaseFactor;
@@ -59,18 +106,16 @@ class GameWorld {
 	// Update player position.
 	this.player.updatePosition();
 
-	// If player collided with a wall, it's game over.
-	let wallCollision = this.collisionHandler.handleCollision(this.player);
-	if (wallCollision) {
-	    console.log("Game over!");
-	    this.gameOver = true;
-	}
-	
 	// If player collided by exit tile, the player finished the level.
 	let exitCollision = this.exit.collidedBy(this.player);
 	if (exitCollision) {
-	    console.log("Finished!");
 	    this.finished = true;
+	}
+
+	// If player collided with a wall, it's game over.
+	let wallCollision = this.collisionHandler.handleCollision(this.player);
+	if (wallCollision && !this.disableCollisions) {
+	    this.gameOver = true;
 	}
 
 	// Update player animation.
@@ -94,16 +139,28 @@ class GameWorld {
     }
 }
 
+// The collision handler object handles collisions between an object and the
+// walls/edges of the world.
 class GameWorldCollisionHandler {
-    constructor(collisionMap, tileSize) {
+    constructor(collisionMap, tileSize, worldWidth, worldHeight) {
 	this.collisionMap = collisionMap;
 	this.tileSize = tileSize;
+	// Keep track of world width and height to be able to check if the
+	// player exits the world boundaries.
+	this.ww = worldWidth,
+	this.wh = worldHeight;
     }
 
     // Handles collisions between the moving player and the world.
     // No need to check for world boundaries, we count on the tiles to take
     // care of that.
     handleCollision(obj) {
+	// Check if the player tries to exit the world boundaries.
+	if      (obj.left   < 0      ) { obj.left   = 0;       obj.velX = 0; }
+	else if (obj.right  > this.ww) { obj.right  = this.ww; obj.velX = 0; }
+	if      (obj.top    < 0      ) { obj.top    = 0;       obj.velY = 0; }
+	else if (obj.bottom > this.wh) { obj.bottom = this.wh; obj.velY = 0; }
+	
 	// We recalculate the top, bottom, left and right values before
 	// each call to handleCollTile to make sure they are correct,
 	// since some time passes between each call.
@@ -247,7 +304,11 @@ class GameWorldCollisionHandler {
     }
 }
 
-// Base class for all objects in the game world.
+// Base class for all objects in the game world. Contains methods for getting
+// and setting the player's x and y coordinates, both using its top and left
+// x/y values, but also using its bottom and right x/y values. This is a
+// major convenience when checking collisions with bottom and right walls and
+// resetting the player's position.
 class GameObject {
     constructor(x, y, width, height) {
 	this._x = x;
@@ -289,6 +350,8 @@ class GameObject {
     }
 }
 
+// A game frame object keeps track of a single
+// frame in the tileset for an object's animation.
 class GameFrame {
     constructor(x, y, width, height, offsetX=0, offsetY=0) {
 	this.x       = x;
@@ -300,6 +363,16 @@ class GameFrame {
     }
 }
 
+// Each object that is animated has a GameEnimator object that keeps track of
+// the object's current animation frame to be rendered during the next render
+// call. The animator keeps track of a set of animation frames that will be
+// looped through for each update. For example, the anglerfish has 5 animation
+// frames each for moving left and right. As long as the player holds down
+// e.g. the left arrow key, the animator object will loop through the frames of
+// that frame set. When the player releases the left arrow key, the player
+// object will update its animator object by providing it a new frame set, the
+// one for being still in the left direction. This frame set only contains one
+// frame, so the mode will be set to 'pause' instead of 'loop'.
 class GameAnimator {
     constructor(frameSet, delay, mode="loop") {
 	this.frameSet = frameSet;
@@ -423,6 +496,8 @@ class GamePlayer extends GameMovingObject {
 	this.y += this.velY;
     }
 
+    // Updates the player's animation in accordance with the player's current
+    // behavior; still, moving, direction, etc.
     updateAnimation() {
 	if (this.isMoving()) {
 	    if (this.dirX == -1)
@@ -465,11 +540,15 @@ class GameShrimp extends GameObject {
 
     // Don't need updatePosition() function since it won't move.
 
+    // Updates the animation of the shrimp. Since it isn't a moving object,
+    // not much interesting is happening here.
     updateAnimation() {
 	this.animator.animate();
     }
 }
 
+// By representing the game exit as an object, we can check if the player
+// finishes the level by handling collision between the player and the exit.
 class GameExit extends GameObject {
     constructor(x, y, width, height) {
 	super(x, y, width, height);

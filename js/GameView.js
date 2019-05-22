@@ -17,6 +17,11 @@ class GameView {
 	this.tilemap = tilemap;
 	this.tilemapSize = tilemapSize;
 	this.tileSize = tileSize;
+
+	// We create a glowing light effect around the anglerfish by setting
+	// a yellow blur along the edges of the circle surrounding the fish.
+	// To create the glowing effect, we continuously change the blur value
+	// back and forth between a minimum and a maximum value.
 	this.blurMin = 10;
 	this.blurMax = 30;
 	this.blurChange = 1;
@@ -52,41 +57,15 @@ class GameView {
 	this.context.imageSmoothingEnabled = false;
     }
 
-    // Fills the background with the specified color.
-    fillBg(color) {
-	this.buffer.fillStyle = color;
-	this.buffer.fillRect(0, 0,
-			     this.buffer.canvas.width,
-			     this.buffer.canvas.height);
-    }
-
-    // Draws a rectangle of the specified size at the specified coordinates.
-    drawRect(x, y, width, height, color) {
-	this.buffer.fillStyle = color;
-	this.buffer.fillRect(Math.floor(x), Math.floor(y), width, height);
-    }
-
-    drawPlayer(rectangle, color1, color2) {
-	this.buffer.fillStyle = color1;
-	this.buffer.fillRect(Math.round(rectangle.x),
-			     Math.round(rectangle.y),
-			     rectangle.width,
-			     rectangle.height);
-	this.buffer.fillStyle = color2;
-	this.buffer.fillRect(Math.round(rectangle.x + 2),
-			     Math.round(rectangle.y + 2),
-			     rectangle.width - 4,
-			     rectangle.height - 4);
-    }
-
+    // Draws the tilemap onto the world.
     drawMap() {
 	for (let row = 0; row < this.tilemapSize.rows; row++) {
 	    for (let col = 0; col < this.tilemapSize.cols; col++) {
-		let tile = this.tilemap[row][col];
-		let srcY = tile[0] * this.tileSize;
-		let srcX = tile[1] * this.tileSize;
-		let dstY = row * this.tileSize;
-		let dstX = col * this.tileSize;
+		const tile = this.tilemap[row][col];
+		const srcY = tile[0] * this.tileSize;
+		const srcX = tile[1] * this.tileSize;
+		const dstY = row * this.tileSize;
+		const dstX = col * this.tileSize;
 		
 		this.buffer.drawImage(this.tileset,
 				      srcX, srcY, this.tileSize, this.tileSize,
@@ -95,25 +74,17 @@ class GameView {
 	}
     }
 
-    drawObject(object, frame) {
-	//let dstY = Math.round(object.y + frame.offsetY);
-	//let dstX = Math.round(object.x +
-	//		      Math.floor(object.width*0.5 - frame.width*0.5) +
-	//		      frame.offsetX);
-    
-	//this.buffer.drawImage(this.tileset,
-	//		      frame.x, frame.y, frame.width, frame.height,
-	//		      dstX, dstY, object.width, object.height);
-
+    // Generic method used to draw any object, e.g. the player and shrimp.
+    drawObject(object, frame, center=false) {
 	this.buffer.drawImage(this.tileset,
 			      frame.x, frame.y, frame.width, frame.height,
 			      object.x, object.y, object.width, object.height);
     }
 
-    drawShrimp(shrimp) {
-	
-    }
-
+    // The entire game world will be completely dark except for a circle
+    // around the fish. To create this effect, we create a "mask" on top
+    // of the tilemap. The edge of the circle around the fish is blurred
+    // in yellow to create a glowing light effect.
     drawLightMask(x, y, rad) {
 	// Update blur size
 	this.updateBlurValue()
@@ -132,6 +103,9 @@ class GameView {
 	this.buffer.restore();
     }
 
+    // This updates the blur value, by increasing/decreasing it with the blur
+    // change value. The blur change value is negated when the blur value
+    // reaches either its maximum or minimum limit.
     updateBlurValue() {
 	if (this.blur < this.blurMin || this.blur > this.blurMax)
 	    this.blurChange = -this.blurChange;

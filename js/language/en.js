@@ -1,4 +1,5 @@
-var en_lang={
+const en_lang = {
+    "id": "en",
     "soundon":"Sound on",
     "soundoff":"Sound off",
     "easy": "Easy",
@@ -7,10 +8,19 @@ var en_lang={
     "add":"Add",
     "start":"Start",
     "quit":"Quit",
-    "next":"Next",
+    "next":"Next level",
     "level1":"LEVEL 1",
     "ready":"Are you ready?",
-    "adventure":"It's time for the next adventure."
-
-
-}
+    "adventure":"It's time for the next adventure.",
+    "dead":"You tried to eat plastic and died in agonizing pain.",
+    "restart":"Try again",
+    "final": "You finished all the levels!",
+    "play":"Play",
+    "options":"Options",
+    "tutorial":"Tutorial",
+    "resume": "Resume",
+    "togglemute": "Mute/Unmute",
+    "hurray": "HURRAY!",
+    "ohno": "Oh no!",
+    "amazing": "AMAZING!"
+};

@@ -1,6 +1,6 @@
 {
     "tileset": {
-	"url": "./images/tileset_rabbit.png",
+	"url": "../images/tileset_rabbit.png",
 	"size": {
 	    "rows":  8,
 	    "cols":  8,
@@ -58,6 +58,7 @@ COLLISION_MAP,
     },
     
     "music": {
-	"url": "MUSIC_URL"
+	"url": "MUSIC_URL",
+	"offset": 0
     }
 }

@@ -1,48 +1,3 @@
-/*var $bubbles=$('.bubbles');
-
-moveBubbles();
-
-function moveBubbles(){
-
-    var min_bubble_count=25;
-        max_bubble_count=65;
-        min_bubble_size=3;
-        max_bubble_size=20;
-
-var bubbleCount=min_bubble_count+ Math.floor(Math.random() * (max_bubble_count+1));
-
-for(var i=0;i<bubbleCount;i++){
-    $bubbles.append('<div class="bubbles-container"><img class=bubble src="images/water_bubble.png"></div>');
-
-
-$bubbles.find('.bubbles-container').each(function(){
-
-    var rand_pos=Math.floor(Math.random()*101);
-    var size_rand=min_bubble_size+Math.floor(Math.random()*(max_bubble_size+1));
-    var delay_rand=Math.floor(Math.random()*16);
-    var speed_rand=Math.floor(Math.random()*9);
-
-
-
-var blur_rand=Math.floor(Math.random()*3);
-
-var $this=$(this);
-
-$this.css({
-  'left':rand_pos+'%',
-  'animation_duration':speed_rand+'s',
-  'filter':'blur('+blur_rand+'px)',
-});
-
-$this.children('.bubble').css({
-    'width':size_rand+'px',
-    'height':size_rand+'px',
-});
-
-});
-}
-
-}*/
 
 /*From https://codepen.io/bh/pen/JBlCc*/
 
@@ -51,8 +6,8 @@ var $bubbles = $('.bubbles');
 function movingBubbles() {
   
   // Settings
-  var min_bubble_count = 25, // Minimum number of bubbles
-      max_bubble_count = 60, // Maximum number of bubbles
+  var min_bubble_count = 10, // Minimum number of bubbles
+      max_bubble_count = 20, // Maximum number of bubbles
       min_bubble_size = 3, // Smallest possible bubble diameter (px)
       max_bubble_size = 12; // Maximum bubble blur amount (px)
   

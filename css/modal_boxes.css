@@ -1,7 +1,6 @@
 /*Some styling was used from https://sabe.io/tutorials/how-to-create-modal-popup-box*/
 
-/*Styling the modal box that shows up when the game starts*/
-.modal-sg {
+.modal {
     position: fixed;
     left: 0;
     top: 0;
@@ -13,7 +12,15 @@
     transform: scale(1.1);
     transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
 }
-.modal-sg-content {
+
+.show-modal {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.0);
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+.modal-content {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -24,159 +31,39 @@
     border-radius: 0.5rem;
 }
 
-.show-modal-sg {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1.0);
-    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
-}
-
-.modal-sg-txt{
+.modal-txt {
     color: #5DADE2;
     font-family: Mali;
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
-}
-
-.modal-sg-btns{
-    display: flex;
-    flex-direction: row;
-    padding: 1em;
-    margin-right: 1em;
-    margin-left: 1em;
-    justify-content: space-between;
-}
-
-.modal-sg-btns .sg-btnQuit {
-    border-radius:  0.5rem;
-    width: 8rem;
-    height: 3rem;
-    background-color: #ED4040;
-    color: #FAE6E6;
-    font-family: Mali;
     text-align: center;
-    font-size: 36px;
-    font-weight: bold;
-    cursor: pointer
-    
-    
 }
 
-.modal-sg-btns .sg-btnQuit:hover{
-    background-color: red;
-    transition: 0.3s ease-in-out;
+.modal-txt .modal-txt-2 {
+    margin: 1em 0;
 }
 
-.modal-sg-btns .sg-btnStart {
-    border-radius:  0.5rem;
-    width: 8rem;
-    height: 3rem;
+.modal-btns {
+    padding: 1em;
+}
+
+.modal-btns .modal-btn {
+    border-radius: 0.5rem;
+    width: 100%;
     background-color: #2097EE;
-    color: #FAE6E6;
-    font-family: Mali;
-    text-align: center;
-    font-size: 36px;
-    font-weight: bold;
-    cursor: pointer
-}
-
-.modal-sg-btns .sg-btnStart:hover{
-    background-color: blue;
-    transition: 0.3s ease-in-out;
-}
-
-
-/*Styling the modal box that shows up when the player wins the level*/
-.modal-nl {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    opacity: 0;
-    visibility: hidden;
-    transform: scale(1.1);
-    transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
-}
-.modal-nl-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #FAE6E6;
-    padding: 1rem 1.5rem;
-    width: 24rem;
-    border-radius: 0.5rem;
-}
-
-.show-modal-nl {
-    opacity: 1;
-    visibility: visible;
-    transform: scale(1.0);
-    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
-}
-
-.modal-nl-txt{
-    color: #5DADE2;
-    font-family: Mali;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    
-}
-
-.modal-nl-txt .modal-nl-txt-2{
-    margin-left: 15%;
-}
-
-.modal-nl-btns{
-    display: flex;
-    flex-direction: row;
-    padding: 1em;
-    margin-right: 1em;
-    margin-left: 1em;
-    justify-content: space-between;
-}
-
-.modal-nl-btns .nl-btnQuit{
-    border-radius:  0.5rem;
-    width: 8rem;
-    height: 3rem;
-    background-color: #ED4040;
     color: #FAE6E6;
     font-family: Mali;
     text-align: center;
     font-size: 36px;
     font-weight: bold;
     cursor: pointer;
-  
+    padding: 10px;
+    margin-bottom: 10px;
 }
 
-.modal-nl-btns .nl-btnQuit:hover{
-    background-color: red;
-    transition: 0.3s ease-in-out;
+.modal-btns .modal-btn:last-child {
+    margin-bottom: 0;
 }
 
-
-
-
-.modal-nl-btns .nl-btnStart {
-    border-radius:  0.5rem;
-    width: 8rem;
-    height: 3rem;
-    background-color: #2097EE;
-    color: #FAE6E6;
-    font-family: Mali;
-    text-align: center;
-    font-size: 36px;
-    font-weight: bold;
-    cursor: pointer
-}
-
-
-.modal-nl-btns .nl-btnStart:hover{
-    background-color:blue;
+.modal-btns .modal-btn:hover {
+    background-color: blue;
     transition: 0.3s ease-in-out;
 }
