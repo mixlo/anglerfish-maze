@@ -46,14 +46,29 @@ class AssetsManager {
 	tileset.src = tilesetUrl;
     }
 
-    // The music is loaded using an Audio object.
-    loadMusic(musicUrl) {
-	this.music = new Audio(musicUrl);
-	this.music.loop = true;
+    // The music is loaded using the AudioManager.
+    // The offset is used to start the track a few seconds in, if needed.
+    loadMusic(musicUrl, offset) {
+	window.audioManager.initLevelMusic(musicUrl, offset);
+    }
 
-	if (localStorage.getItem("muted") == "true")
-	    this.music.muted = true;
-	
-	this.music.play();
+    // Stops the music, e.g. when player finishes or loses.
+    stopMusic() {
+	window.audioManager.stopLevelMusic();
+    }
+
+    // Play finish music when player finishes successfully.
+    playFinishMusic() {
+	window.audioManager.playFinishMusic();
+    }
+
+    // Play fail music when player dies-
+    playFailMusic() {
+	window.audioManager.playFailMusic();
+    }
+
+    // Player final music when player finishes the last level.
+    playFinalMusic() {
+	window.audioManager.playFinalMusic();
     }
 }

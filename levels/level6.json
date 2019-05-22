@@ -97,6 +97,7 @@
     },
     
     "music": {
-	"url": "./audio/wing_dungeon.mp3"
+	"url": "./audio/room_of_rites.mp3",
+	"offset": 2
     }
 }

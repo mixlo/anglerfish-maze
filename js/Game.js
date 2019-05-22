@@ -11,7 +11,8 @@ class Game {
 	this.view = undefined;
 	this.endModalActive = false;
 	this.currentLevel = parseInt(localStorage.getItem("level")) || 1;
-	this.finalLevel = 5;
+	this.finalLevel = 6;
+	this.startPageUrl = "Welcome_Page.html";
     }
 
     // Starts the game engine, game will update state and render 30 times/s.
@@ -37,17 +38,30 @@ class Game {
 	    // Arrow function to preserve context ("this")
 	    const keyChange = (e) => this.controller.keyChange(e.type,
 							       e.keyCode);
+	    // Make sure game respondes to arrow
+	    // keys and resizing of the window.
 	    window.addEventListener("keydown", keyChange);
 	    window.addEventListener("keyup", keyChange);
 	    window.addEventListener("resize", () => this.resize());
 
+	    // Set up the buttons etc. of all modal
+	    // dialogs that can occur during the level.
 	    this.setUpPauseModal();
 	    this.setUpFinishModal();
 	    this.setUpLoseModal();
 	    this.setUpFinalModal();
 
+	    // Can disable light mask and wall collisions,
+	    // mainly for debugging/demonstration purposes.
+	    this.disableMask = true;
+	    //this.model.world.disableCollisions = true;
+
+	    // Begin by making sure that game is scaled to the window
+	    // correctly (this will also trigger an initial rendering), load
+	    // the background music for the level and start the engine, which
+	    // will update the model and render the view 30 times per second.
 	    this.resize();
-	    this.assManager.loadMusic(data.music.url);
+	    this.assManager.loadMusic(data.music.url, data.music.offset);
 	    this.engine.start();
 	});
     }
@@ -80,10 +94,11 @@ class Game {
 	}
 	
 	// Draw light mask onto buffer canvas
-	//this.view.drawLightMask(this.model.world.player.xCenter,
-	//			this.model.world.player.yCenter,
-	//			this.model.world.lightRadius);
-		
+	if (!this.disableMask)
+	    this.view.drawLightMask(this.model.world.player.xCenter,
+				    this.model.world.player.yCenter,
+				    this.model.world.lightRadius);
+	
 	// Render everything onto real canvas
 	this.view.render();
     }
@@ -97,26 +112,38 @@ class Game {
 	this.view.render();
     }
 
+    // Handles whatever terminated the level (finish/fail) by halting the
+    // engine, stopping the level's background music, showing the appropriate
+    // modal dialog and playing the appropriate music (success/fail).
     handleWinLoss() {
-	let modal;
+	let modal, musicFunc;
 	
 	if (this.model.world.finished) {
 	    if (this.currentLevel == this.finalLevel) {
 		modal = document.getElementById("modalFinal");
+		musicFunc = this.assManager.playFinalMusic;
 	    } else {
 		modal = document.getElementById("modalFinish");
+		musicFunc = this.assManager.playFinishMusic;
 	    }
 	} else if (this.model.world.gameOver) {
 	    modal = document.getElementById("modalLose");
+	    musicFunc = this.assManager.playFailMusic;
 	} else {
 	    return;
 	}
 
-	modal.classList.toggle("show-modal");
 	this.engine.stop();
+	this.assManager.stopMusic();
+	modal.classList.toggle("show-modal");
+	musicFunc();
 	this.endModalActive = true;
     }
 
+    // Sets up the actions of the buttons in the 'pause' modal dialog, which
+    // appears when the player presses the Escape button. The 'pause' dialog
+    // allows for muting/unmuting all sounds and music, quitting to main menu
+    // or resuming the game play.
     setUpPauseModal() {
 	window.addEventListener("keypress", (e) => this.checkEscPressed(e));
 	
@@ -131,15 +158,19 @@ class Game {
 	});
 
 	btnToggleMute.addEventListener("click", () => {
-	    this.assManager.music.muted = !this.assManager.music.muted;
-	    localStorage.setItem("muted", this.assManager.music.muted);
+	    //this.assManager.music.muted = !this.assManager.music.muted;
+	    //localStorage.setItem("muted", this.assManager.music.muted);
+	    window.audioManager.toggleMuteAll();
 	});
 
 	btnQuit.addEventListener("click", () => {
-	    location.replace("Home_page.html");
+	    location.replace(this.startPageUrl);
 	});
     }
 
+    // Sets up the actions of the buttons in the 'finish' modal dialog, which
+    // appears when the player reaches the exit of the level. It will allow
+    // the player to either continue to the next level or quit to the main menu.
     setUpFinishModal() {
 	const btnNext = document.getElementById("finishBtnNext");
 	const btnQuit = document.getElementById("finishBtnQuit");
@@ -150,10 +181,13 @@ class Game {
 	});
 
 	btnQuit.addEventListener("click", () => {
-	    location.replace("Home_page.html");
+	    location.replace(this.startPageUrl);
 	});
     }
 
+    // Sets up the actions of the buttons in the 'fail' modal dialog, which
+    // appears when the player collides with a wall. It will allow the player
+    // to either try the level again from the start, or quit to the main menu. 
     setUpLoseModal() {
 	const btnAgain = document.getElementById("loseBtnAgain");
 	const btnQuit = document.getElementById("loseBtnQuit");
@@ -163,19 +197,23 @@ class Game {
 	});
 
 	btnQuit.addEventListener("click", () => {
-	    location.replace("Home_page.html");
+	    location.replace(this.startPageUrl);
 	});
     }
 
+    // Sets up the actions of the buttons in the 'final' modal dialog, which
+    // appears instead of the 'finish' modal dialog when the player reaches
+    // the end of the final level. It will just congratulate the player on
+    // finishing all levels and then allow for them to return to main menu.
     setUpFinalModal() {
 	const btnQuit = document.getElementById("finalBtnQuit");
 
 	btnQuit.addEventListener("click", () => {
-	    location.replace("Home_page.html");
+	    location.replace(this.startPageUrl);
 	});
     }
     
-    // Shows pause menu if ESC key was pressed
+    // Shows pause menu if ESC key was pressed.
     checkEscPressed(event) {
 	if (event.keyCode == 27 && !this.endModalActive) {
 	    const modal = document.getElementById("modalPause");

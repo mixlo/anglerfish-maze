@@ -1,17 +1,26 @@
-var sv_lang={
+const sv_lang = {
+    "id": "sv",
     "soundon":"Ljud på",
     "soundoff":"Ljud av",
     "easy": "Lätt",
     "medium":"Medium",
     "hard":"Svårt",
-    "add":"Tillägga",
+    "add":"Lägg till",
     "start":"Start",
-    "quit":"Sluta med",
-    "next":"Nästa",
+    "quit":"Avsluta",
+    "next":"Nästa nivå",
     "level1":"NIVÅ 1",
     "ready":"Är du redo?",
     "adventure":"Det är dags för nästa äventyr.",
+    "dead":"Du försökte äta plast och avled i fruktansvärd smärta.",
+    "restart":"Försök igen",
+    "final": "Du klarade alla nivåer!",
     "play":"Spela",
     "options":"Inställningar",
-    "tutorial":"Handledning"
-}
+    "tutorial":"Tutorial",
+    "resume": "Fortsätt",
+    "togglemute": "Ljud på/av",
+    "hurray": "HURRA!",
+    "ohno": "Åh nej!",
+    "amazing": "OTROLIGT!"
+};

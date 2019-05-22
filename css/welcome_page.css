@@ -61,6 +61,7 @@ body {
     justify-content: center;
     margin-bottom: 30px;
     display: list-item;
+    list-style-type: none;
     border-radius: 20px;
     border-color: #A7E5ED;
     width: 250px;

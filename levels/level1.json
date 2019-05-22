@@ -65,6 +65,7 @@
     },
     
     "music": {
-	"url": "./audio/wing_dungeon.mp3"
+	"url": "./audio/wing_dungeon.mp3",
+	"offset": 1
     }
 }

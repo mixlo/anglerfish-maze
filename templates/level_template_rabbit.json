@@ -58,6 +58,7 @@ COLLISION_MAP,
     },
     
     "music": {
-	"url": "MUSIC_URL"
+	"url": "MUSIC_URL",
+	"offset": 0
     }
 }

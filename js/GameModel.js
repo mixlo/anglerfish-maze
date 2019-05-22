@@ -80,6 +80,7 @@ class GameWorld {
 	// a wall (game over) or the exit (level finished).
 	this.finished = false;
 	this.gameOver = false;
+	this.disableCollisions = false;
     }
 
     // Calculates the which x and y coordinates should be used to make an
@@ -108,14 +109,12 @@ class GameWorld {
 	// If player collided by exit tile, the player finished the level.
 	let exitCollision = this.exit.collidedBy(this.player);
 	if (exitCollision) {
-	    console.log("Finished!");
 	    this.finished = true;
 	}
 
 	// If player collided with a wall, it's game over.
 	let wallCollision = this.collisionHandler.handleCollision(this.player);
-	if (wallCollision) {
-	    console.log("Game over!");
+	if (wallCollision && !this.disableCollisions) {
 	    this.gameOver = true;
 	}
 
