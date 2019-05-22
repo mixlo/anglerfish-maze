@@ -11,7 +11,8 @@ class Game {
 	this.view = undefined;
 	this.endModalActive = false;
 	this.currentLevel = parseInt(localStorage.getItem("level")) || 1;
-	this.finalLevel = 6;
+	this.finalLevel = 5;
+	this.disableMask = false;
 	this.startPageUrl = "Welcome_Page.html";
     }
 
@@ -53,8 +54,8 @@ class Game {
 
 	    // Can disable light mask and wall collisions,
 	    // mainly for debugging/demonstration purposes.
-	    //this.disableMask = true;
-	    //this.model.world.disableCollisions = true;
+	    //this.disableMask = false;
+	    //this.model.world.disableCollisions = false;
 
 	    // Begin by making sure that game is scaled to the window
 	    // correctly (this will also trigger an initial rendering), load
