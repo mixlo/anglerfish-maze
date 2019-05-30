@@ -68,22 +68,17 @@ function initLanguage() {
 
     // load english as default when no language is set yet
     if (!currentLanguageString) {
-	var en_string = localStorage.getItem('en_lang');
-	localStorage.setItem('current_language', en_string);
+        var en_string = localStorage.getItem('en_lang');
+        localStorage.setItem('current_language', en_string);
         currentLanguage = JSON.parse(en_string);
     } else {
-        //console.log(currentLanguageString);
         currentLanguage = JSON.parse(currentLanguageString);
     }
 }
 
-// loads the language, needs a delay to wait for all items to load
+// loads the language
 $(document).ready(function () {
-    //var delayInMilliseconds = 10;
-    //setTimeout(function () {
-        translateByAttribute();
-    //}, delayInMilliseconds);
-
+    translateByAttribute();
 });
 
 initLanguage();
