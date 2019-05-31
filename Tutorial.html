@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="user-scalable=no,width=device-width" />
+    <title>Anglerfish Maze</title>
+    <link href="./css/Game.css" rel="stylesheet" type="text/css" />
+    <link href="./css/modal_boxes.css" rel="stylesheet" type="text/css" />
+    <!-- Sets to Tutorial level -->
+    <script type="text/javascript">localStorage.setItem("level", 0);</script>
+    <script type="text/javascript" src="./js/Game.js"></script>
+    <script type="text/javascript" src="./js/GameEngine.js"></script>
+    <script type="text/javascript" src="./js/GameController.js"></script>
+    <script type="text/javascript" src="./js/GameModel.js"></script>
+    <script type="text/javascript" src="./js/GameView.js"></script>
+    <script type="text/javascript" src="./js/AssetsManager.js"></script>
+  </head>
+  <body>
+    <img id="arrowUp"    src="./images/arrow_up.png",    style="display: none;">
+    <img id="arrowDown"  src="./images/arrow_down.png",  style="display: none;">
+    <img id="arrowLeft"  src="./images/arrow_left.png",  style="display: none;">
+    <img id="arrowRight" src="./images/arrow_right.png", style="display: none;">
+    <img id="square"     src="./images/square.png",      style="display: none;">
+    
+    <canvas></canvas>
+    
+    <div id="modalPause" class="modal">
+      <div class="modal-content">
+        <div class="modal-btns">
+	  <form i18n-data="resume" id="pauseBtnResume" class="modal-btn">Resume</form>
+	  <form i18n-data="togglemute" id="pauseBtnToggleMute" class="modal-btn">Mute/Unmute</form>
+          <form i18n-data="quit" id="pauseBtnQuit" class="modal-btn">Quit</form>
+        </div>
+      </div>
+    </div>
+
+    <div id="modalFinal" class="modal">
+      <div class="modal-content">
+	<div class="modal-txt">
+	  <h1 i18n-data="tutwelldone">Well done!</h1>
+          <h2 i18n-data="tutfinal" class="modal-txt-2">
+	    You finished the tutorial! You are now ready to play the game for real.
+	  </h2>
+	</div>
+        <div class="modal-btns">
+          <form i18n-data="quit" id="finalBtnQuit" class="modal-btn">Quit</form>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="./js/AudioManager.js"></script>
+    <script type="text/javascript" src="./js/language.js"></script>
+    
+    <script type="text/javascript">
+      const game = new Game(true);
+      game.start();
+    </script>
+  </body>
+</html>

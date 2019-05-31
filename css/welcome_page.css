@@ -141,7 +141,7 @@ body {
 
 @media screen and (max-width:55em) and (min-width:30em) {
     .first_container {
-        background-image: url("../images/background_small.png");
+        background-image: url("../images/background_small.PNG");
         display: flex;
         flex-wrap: wrap;
         justify-content: center;

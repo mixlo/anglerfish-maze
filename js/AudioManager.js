@@ -27,12 +27,6 @@ class AudioManager {
 	this.optionsMusic.currentTime = 3;
 	this.optionsMusic.loop = true;
 
-	// Background music in the tutorial, offset 3 seconds.
-	this.tutorialMusic = new Audio();
-	this.tutorialMusic.src = "audio/skull_pirates.mp3";
-	this.tutorialMusic.currentTime = 3;
-	this.tutorialMusic.loop = true;
-
 	// Music that plays when the player clears a level.
 	this.finishMusic = new Audio();
 	this.finishMusic.src = "audio/get_item.mp3";
@@ -66,7 +60,6 @@ class AudioManager {
 	this.bubbleSound.muted = this.muted;
 	this.bubblePopSound.muted = this.muted;
 	this.optionsMusic.muted = this.muted;
-	this.tutorialMusic.muted = this.muted;
 	this.finishMusic.muted = this.muted;
 	this.failMusic.muted = this.muted;
 	this.finalMusic.muted = this.muted;
@@ -108,7 +101,6 @@ class AudioManager {
     playBubbleSound()    { this.bubbleSound.play();    }
     playBubblePopSound() { this.bubblePopSound.play(); }
     playOptionsMusic()   { this.optionsMusic.play();   }
-    playTutorialMusic()  { this.tutorialMusic.play();  }
     playFinishMusic()    { this.finishMusic.play();    }
     playFailMusic()      { this.failMusic.play();      }
     playFinalMusic()     { this.finalMusic.play();     }

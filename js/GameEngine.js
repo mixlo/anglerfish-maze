@@ -8,10 +8,10 @@ class GameEngine {
     // check if any arrow keys are pressed and update the player's position
     // accordingly. Higher updatesPerSec == faster game, but slower devices
     // might not be able to keep up with the speed if too high.
-    constructor(update, render, handleWinLoss, updatesPerSec=30) {
+    constructor(update, render, handleEvents, updatesPerSec=30) {
 	this.update = update;
 	this.render = render;
-	this.handleWinLoss = handleWinLoss;
+	this.handleEvents = handleEvents;
 	this.timeStep = 1000/updatesPerSec;
 	this.accTime = 0;
 	this.prevTime = undefined;
@@ -67,7 +67,7 @@ class GameEngine {
 	// performed.
 	if (this.updated) {
 	    this.render();
-	    this.handleWinLoss();
+	    this.handleEvents();
 	    this.updated = false;
 	}
     }

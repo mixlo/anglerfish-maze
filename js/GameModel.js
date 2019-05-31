@@ -77,9 +77,13 @@ class GameWorld {
 	this.lightDecreaseFactor = 0.999;
 
 	// Variables keeping track of whether the player has collided with
-	// a wall (game over) or the exit (level finished).
+	// a wall (game over) or the exit (level finished), or after the
+	// player has eaten its first shrimp.
 	this.finished = false;
 	this.gameOver = false;
+	this.shrimpEaten = false;
+	// Disables collisions with walls, used in e.g. the tutorial, where
+	// we want to show mercy after displaying the Lose message once.
 	this.disableCollisions = false;
     }
 
@@ -129,6 +133,7 @@ class GameWorld {
 	    if (shrimp.collidedBy(this.player)) {
 		this.lightRadius = this.lightRadiusMax;
 		this.shrimp.splice(this.shrimp.indexOf(shrimp), 1);
+		this.shrimpEaten = true;
 	    }
 	    
 	    shrimp.updateAnimation();

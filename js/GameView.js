@@ -10,7 +10,6 @@ class GameView {
 	this.buffer = document.createElement("canvas").getContext("2d");
 	this.buffer.canvas.width = worldWidth;
 	this.buffer.canvas.height = worldHeight;
-	this.buffer.imageSmoothingEnabled = false;
 	this.worldWidth = worldWidth;
 	this.worldHeight = worldHeight;
 	this.tileset = tileset;
@@ -26,6 +25,24 @@ class GameView {
 	this.blurMax = 30;
 	this.blurChange = 1;
 	this.blur = this.blurMin;
+
+	// Assumes that these images are loaded in the tutorial page.
+	// Since these variables are only used in the tutorial page, it
+	// doesn't matter if they are undefined in real game page.
+	this.arrowUpImg = document.getElementById("arrowUp");
+	this.arrowDownImg = document.getElementById("arrowDown");
+	this.arrowLeftImg = document.getElementById("arrowLeft");
+	this.arrowRightImg = document.getElementById("arrowRight");
+	this.squareImg = document.getElementById("square");
+
+	// To preserve pixel sharpness in pixel art, the imageSmoothingEnabled
+	// property on the canvas context needs to be false. We always set it
+	// to false on the buffer canvas, but we make it possible to toggle it
+	// on the real canvas, since it is useful to set it to true when
+	// displaying text in the popups in the tutorial.
+	this.shouldUseImageSmoothing = false;
+	this.context.imageSmoothingEnabled = this.shouldUseImageSmoothing;
+	this.buffer.imageSmoothingEnabled = false;
     }
 
     // Renders everything that is drawn on the buffer canvas
@@ -52,9 +69,10 @@ class GameView {
 	    this.context.canvas.width = domHeight / worldAspRat;
 	}
 	
-	// To preserve pixel sharpness in pixel art
-	// Is set to true upon resize, need to reset to false
-	this.context.imageSmoothingEnabled = false;
+	// To preserve pixel sharpness in pixel art.
+	// Is set to true upon resize, need to reset it.
+	this.context.imageSmoothingEnabled = this.shouldUseImageSmoothing;
+	this.buffer.imageSmoothingEnabled = false;
     }
 
     // Draws the tilemap onto the world.
@@ -111,5 +129,235 @@ class GameView {
 	    this.blurChange = -this.blurChange;
 
 	this.blur += this.blurChange;
+    }
+
+    // Method to toggle whether image smoothing should be used.
+    // Useful for the tutorial.
+    useImageSmoothing(enabled) {
+	this.shouldUseImageSmoothing = enabled;
+	this.context.imageSmoothingEnabled = this.shouldUseImageSmoothing;
+    }
+
+
+
+    // Draw method for Welcome popup in tutorial.
+    drawTutPopWelcome() {
+	const sqWidth = this.tileSize * 5.5;
+	const sqHeight = this.tileSize * 1.5;
+	this.buffer.drawImage(this.squareImg,
+			      this.worldWidth/2 - sqWidth/2,
+			      this.worldHeight/2 - sqHeight/2 - 3,
+			      sqWidth,
+			      sqHeight);
+	this.buffer.font = "12px Mali";
+	this.buffer.textAlign = "center";
+	this.buffer.fillStyle = "white";
+	this.buffer.fillText(window.currentLanguage["tutwelcome1"],
+			     this.worldWidth/2,
+			     this.worldHeight/2 - 20);
+	this.buffer.fillText(window.currentLanguage["tutwelcome2"],
+			     this.worldWidth/2,
+			     this.worldHeight/2);
+	this.buffer.fillText(window.currentLanguage["tutwelcome3"],
+			     this.worldWidth/2,
+			     this.worldHeight/2 + 20);
+    }
+
+    // Draw method for Fish popup in tutorial.
+    drawTutPopFish() {
+	this.buffer.drawImage(this.squareImg,
+			      this.tileSize/2-8,
+			      this.tileSize*2,
+			      this.tileSize*3.3,
+			      this.tileSize*0.9);
+	this.buffer.font = "10px Mali";
+	this.buffer.textAlign = "center";
+	this.buffer.fillStyle = "white";
+	this.buffer.fillText(window.currentLanguage["tutfish1"],
+			     this.tileSize*2,
+			     this.worldHeight/2 - 15);
+	this.buffer.fillText(window.currentLanguage["tutfish2"],
+			     this.tileSize*2,
+			     this.worldHeight/2);
+	this.buffer.fillText(window.currentLanguage["tutfish3"],
+			     this.tileSize*2,
+			     this.worldHeight/2 + 15);
+	this.buffer.drawImage(this.arrowLeftImg,
+			      this.tileSize,
+			      this.tileSize + 10,
+			      this.tileSize, this.tileSize);
+    }
+
+    // Draw method for Finish popup in tutorial.
+    drawTutPopFinish() {
+	this.buffer.drawImage(this.squareImg,
+			      this.worldWidth - this.tileSize*2.5,
+			      this.worldHeight - this.tileSize*2.7,
+			      this.tileSize*2.4,
+			      this.tileSize*0.7);
+	this.buffer.font = "10px Mali";
+	//this.buffer.textAlign = "center";
+	this.buffer.fillStyle = "white";
+	this.buffer.fillText(window.currentLanguage["tutfinish1"],
+			     this.worldWidth - this.tileSize*1.3,
+			     this.worldHeight - this.tileSize*2.3 - 7);
+	this.buffer.fillText(window.currentLanguage["tutfinish2"],
+			     this.worldWidth - this.tileSize*1.3,
+			     this.worldHeight - this.tileSize*2.3 + 8);
+	this.buffer.drawImage(this.arrowRightImg,
+			      this.worldWidth - this.tileSize-15,
+			      this.worldHeight - this.tileSize*2-5,
+			      this.tileSize, this.tileSize);
+    }
+
+    // Draw method for Garbage popup in tutorial.
+    drawTutPopGarbage() {
+	this.buffer.drawImage(this.squareImg,
+			      this.tileSize*3,
+			      this.worldHeight - this.tileSize*1.55,
+			      this.tileSize*3.4,
+			      this.tileSize);
+	this.buffer.font = "10px Mali";
+	this.buffer.textAlign = "center";
+	this.buffer.fillStyle = "white";
+	this.buffer.fillText(window.currentLanguage["tutgarbage1"],
+			     this.tileSize*4.7,
+			     this.worldHeight - this.tileSize - 15);
+	this.buffer.fillText(window.currentLanguage["tutgarbage2"],
+			     this.tileSize*4.7,
+			     this.worldHeight - this.tileSize);
+	this.buffer.fillText(window.currentLanguage["tutgarbage3"],
+			     this.tileSize*4.7,
+			     this.worldHeight - this.tileSize + 15);
+	this.buffer.drawImage(this.arrowUpImg,
+			      this.tileSize*2+10,
+			      this.worldHeight - this.tileSize*2,
+			      this.tileSize, this.tileSize);
+    }
+
+    // Draw method for Shrimp popup in tutorial.
+    drawTutPopShrimp() {
+	this.buffer.drawImage(this.squareImg,
+			      this.tileSize*4,
+			      this.tileSize*0.85,
+			      this.tileSize*2.4,
+			      this.tileSize*0.9);
+	this.buffer.font = "10px Mali";
+	this.buffer.textAlign = "center";
+	this.buffer.fillStyle = "white";
+	this.buffer.fillText(window.currentLanguage["tutshrimp1"],
+			     this.worldWidth - this.tileSize*1.8,
+			     this.tileSize*1.35 - 15);
+	this.buffer.fillText(window.currentLanguage["tutshrimp2"],
+			     this.worldWidth - this.tileSize*1.8,
+			     this.tileSize*1.35);
+	this.buffer.fillText(window.currentLanguage["tutshrimp3"],
+			     this.worldWidth - this.tileSize*1.8,
+			     this.tileSize*1.35 + 15);
+	this.buffer.drawImage(this.arrowDownImg,
+			      this.tileSize*3 + 10,
+			      this.tileSize + 15,
+			      this.tileSize, this.tileSize);
+    }
+
+    // Draw method for Dark popup in tutorial.
+    drawTutPopDark() {
+	const sqWidth = this.tileSize * 4;
+	const sqHeight = this.tileSize * 1.3;
+	this.buffer.drawImage(this.squareImg,
+			      this.worldWidth/2 - sqWidth/2,
+			      this.worldHeight/2 - sqHeight/2 - 3,
+			      sqWidth,
+			      sqHeight);
+	this.buffer.font = "10px Mali";
+	this.buffer.textAlign = "center";
+	this.buffer.fillStyle = "white";
+	this.buffer.fillText(window.currentLanguage["tutdark1"],
+			     this.worldWidth/2,
+			     this.worldHeight/2 - 22);
+	this.buffer.fillText(window.currentLanguage["tutdark2"],
+			     this.worldWidth/2,
+			     this.worldHeight/2 - 7);
+	this.buffer.fillText(window.currentLanguage["tutdark3"],
+			     this.worldWidth/2,
+			     this.worldHeight/2 + 8);
+	this.buffer.fillText(window.currentLanguage["tutdark4"],
+			     this.worldWidth/2,
+			     this.worldHeight/2 + 23);
+    }
+
+    // Draw method for Let's Play popup in tutorial.
+    drawTutPopPlay() {
+	const sqWidth = this.tileSize * 4.5;
+	const sqHeight = this.tileSize * 1.5;
+	this.buffer.drawImage(this.squareImg,
+			      this.worldWidth/2 - sqWidth/2,
+			      this.worldHeight/2 - sqHeight/2 - 3,
+			      sqWidth,
+			      sqHeight);
+	this.buffer.font = "12px Mali";
+	this.buffer.textAlign = "center";
+	this.buffer.fillStyle = "white";
+	this.buffer.fillText(window.currentLanguage["tutplay1"],
+			     this.worldWidth/2,
+			     this.worldHeight/2 - 20);
+	this.buffer.fillText(window.currentLanguage["tutplay2"],
+			     this.worldWidth/2,
+			     this.worldHeight/2);
+	this.buffer.fillText(window.currentLanguage["tutplay3"],
+			     this.worldWidth/2,
+			     this.worldHeight/2 + 20);
+    }
+
+    // Draw method for Shrimp Eaten in tutorial.
+    drawTutPopShrimpEaten() {
+	const sqWidth = this.tileSize * 4;
+	const sqHeight = this.tileSize * 1;
+	this.buffer.drawImage(this.squareImg,
+			      this.worldWidth/2 - sqWidth/2,
+			      this.worldHeight/2 - sqHeight/2 - 3,
+			      sqWidth,
+			      sqHeight);
+	this.buffer.font = "10px Mali";
+	this.buffer.textAlign = "center";
+	this.buffer.fillStyle = "white";
+	this.buffer.fillText(window.currentLanguage["tutshrimpeaten1"],
+			     this.worldWidth/2,
+			     this.worldHeight/2 - 15);
+	this.buffer.fillText(window.currentLanguage["tutshrimpeaten2"],
+			     this.worldWidth/2,
+			     this.worldHeight/2);
+	this.buffer.fillText(window.currentLanguage["tutshrimpeaten3"],
+			     this.worldWidth/2,
+			     this.worldHeight/2 + 15);
+    }
+
+    // Draw method for Lose popup in tutorial.
+    drawTutPopLose() {
+	const sqWidth = this.tileSize * 4;
+	const sqHeight = this.tileSize * 1.5;
+	this.buffer.drawImage(this.squareImg,
+			      this.worldWidth/2 - sqWidth/2,
+			      this.worldHeight/2 - sqHeight/2 - 3,
+			      sqWidth,
+			      sqHeight);
+	this.buffer.font = "10px Mali";
+	this.buffer.textAlign = "center";
+	this.buffer.fillStyle = "white";
+	this.buffer.fillText(window.currentLanguage["tutlose1"],
+			     this.worldWidth/2,
+			     this.worldHeight/2 - 30);
+	this.buffer.fillText(window.currentLanguage["tutlose2"],
+			     this.worldWidth/2,
+			     this.worldHeight/2 - 15);
+	this.buffer.fillText(window.currentLanguage["tutlose3"],
+			     this.worldWidth/2,
+			     this.worldHeight/2);
+	this.buffer.fillText(window.currentLanguage["tutlose4"],
+			     this.worldWidth/2,
+			     this.worldHeight/2 + 15);
+	this.buffer.fillText(window.currentLanguage["tutlose5"],
+			     this.worldWidth/2,
+			     this.worldHeight/2 + 30);
     }
 }
