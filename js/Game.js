@@ -231,7 +231,7 @@ class Game {
     // allows for muting/unmuting all sounds and music, quitting to main menu
     // or resuming the game play.
     setUpPauseModal() {
-	window.addEventListener("keypress", (e) => this.checkEscPressed(e));
+	window.addEventListener("keydown", (e) => this.checkEscPressed(e));
 	
 	const btnResume = document.getElementById("pauseBtnResume");
 	const btnToggleMute = document.getElementById("pauseBtnToggleMute");
@@ -336,7 +336,7 @@ class Game {
 	];
 
 	// Start listening for Enter press inputs to close tutorial popups.
-	window.addEventListener("keypress",
+	window.addEventListener("keydown",
 				(e) => this.checkTutEnterPressed(e));
 
 	// Start rendering the initial popups.
