@@ -8,6 +8,7 @@ WALL = 1
 
 
 """
+# DEPRECATED
 # For tileset_rabbit.png
 # Real dirt walls, used for testing
 class GM:

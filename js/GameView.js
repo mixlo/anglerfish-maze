@@ -196,7 +196,7 @@ class GameView {
 			      this.tileSize*2.4,
 			      this.tileSize*0.7);
 	this.buffer.font = "10px Mali";
-	//this.buffer.textAlign = "center";
+	this.buffer.textAlign = "center";
 	this.buffer.fillStyle = "white";
 	this.buffer.fillText(window.currentLanguage["tutfinish1"],
 			     this.worldWidth - this.tileSize*1.3,

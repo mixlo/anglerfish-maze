@@ -394,8 +394,8 @@ class GameAnimator {
     }
 
     changeFrameSet(frameSet, mode, delay=10, frameIndex=0) {
-	// Don't need this?
-	if (this.frameSet == frameSet) return;
+	if (this.frameSet == frameSet)
+	    return;
 
 	this.frameSet = frameSet;
 	this.frameIndex = frameIndex;
