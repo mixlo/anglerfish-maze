@@ -13,7 +13,11 @@ in the browser (Firefox works best).
 -- GENERAL INFORMATION
 
 The game is started by opening the page Welcome_Page.html. From there you use
-the menus to navigate through the pages of the game.
+the menus to navigate through the pages of the game. When in game, a Pause
+menu can be accessed by pressing Escape, in which the player can choose to
+resume playing, mute/unmute sound or quit to main menu (there should probably
+be instructions for this somewhere in the actual game as well, it's on our
+TODO list...).
 
 The game uses the browser's localStorage to store settings such as language
 and if the sound is muted. If something gets messed up with the settings and
