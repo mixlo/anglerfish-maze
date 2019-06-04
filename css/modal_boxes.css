@@ -67,3 +67,27 @@
     background-color: blue;
     transition: 0.3s ease-in-out;
 }
+
+@media screen and (min-width: 25em) and (max-width: 40em) {
+    .modal-content {
+        width: 47%;
+    }
+    .modal-txt {
+        font-size: 12px;
+    }
+    .modal-btns .modal-btn {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 25em) {
+    .modal-content {
+        width: 50%;
+    }
+    .modal-txt {
+        font-size: 9px;
+    }
+    .modal-btns .modal-btn {
+        font-size: 10px;
+    }
+}
