@@ -10,13 +10,13 @@ html {
 }
 
 body {
-  align-content: center;
-  align-items: space-around;
-  background-color: #202830;
-  display: grid;
-  justify-items: center;
-  height: 100%;
-  width: 100%;
+    align-content: center;
+    align-items: space-around;
+    background-color: #202830;
+    display: grid;
+    justify-items: center;
+    height: 100%;
+    width: 100%;
 }
 
 canvas {

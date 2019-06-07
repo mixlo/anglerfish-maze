@@ -1,63 +1,63 @@
 {
     "tileset": {
-	"url": "images/tileset.png",
-	"size": {
-	    "rows":  1,
-	    "cols":  2,
-	    "tile": 60,
-	    "player": {
-		"width":  42,
-		"height": 26
-	    },
-	    "shrimp": {
-		"width":  23,
-		"height": 25
-	    }
-	},
-	"frameSets": {
-	    "player": {
-		"idle-left":  [[ 0,  86, 41, 25]],
-		"swim-left":  [[41,  85, 40, 25],
-			       [81,  85, 38, 26],
-			       [ 0, 111, 41, 26],
-			       [41, 111, 42, 26]],
-		"idle-right": [[ 0, 138, 41, 25]],
-		"swim-right": [[41, 138, 40, 25],
-			       [81, 137, 38, 26],
-			       [ 0, 163, 41, 26],
-			       [41, 163, 42, 26]]
-	    },
-	    "shrimp": {
-		"squirm":     [[ 0,  60, 23, 25]]
-	    }
-	}
+        "url": "images/tileset.png",
+        "size": {
+            "rows":  1,
+            "cols":  2,
+            "tile": 60,
+            "player": {
+                "width":  42,
+                "height": 26
+            },
+            "shrimp": {
+                "width":  23,
+                "height": 25
+            }
+        },
+        "frameSets": {
+            "player": {
+                "idle-left":  [[ 0,  86, 41, 25]],
+                "swim-left":  [[41,  85, 40, 25],
+                               [81,  85, 38, 26],
+                               [ 0, 111, 41, 26],
+                               [41, 111, 42, 26]],
+                "idle-right": [[ 0, 138, 41, 25]],
+                "swim-right": [[41, 138, 40, 25],
+                               [81, 137, 38, 26],
+                               [ 0, 163, 41, 26],
+                               [41, 163, 42, 26]]
+            },
+            "shrimp": {
+                "squirm":     [[ 0,  60, 23, 25]]
+            }
+        }
     },
     
     "tilemap": {
-	"size": {
-	    "rows": TILEMAP_ROWS,
-	    "cols": TILEMAP_COLS
-	},
-	
-	"graphical":
+        "size": {
+            "rows": TILEMAP_ROWS,
+            "cols": TILEMAP_COLS
+        },
+        
+        "graphical":
 GRAPHICAL_MAP,
-	
-	"collision":
+        
+        "collision":
 COLLISION_MAP,
-	
-	"shrimpPos": SHRIMP_POS,
-	"startTile": {
-	    "row": START_ROW,
-	    "col": START_COL
-	},
-	"exitTile": {
-	    "row": EXIT_ROW,
-	    "col": EXIT_COL
-	}
+        
+        "shrimpPos": SHRIMP_POS,
+        "startTile": {
+            "row": START_ROW,
+            "col": START_COL
+        },
+        "exitTile": {
+            "row": EXIT_ROW,
+            "col": EXIT_COL
+        }
     },
     
     "music": {
-	"url": "MUSIC_URL",
-	"offset": 0
+        "url": "MUSIC_URL",
+        "offset": 0
     }
 }
